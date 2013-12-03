@@ -22,14 +22,23 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PhotoProcess.AssistLib
 {
+    /// <summary>
+    /// Popup window for Help  
+    /// </summary>
     public class HelpPopup
     {
+        #region private variable
         Popup helpPopup;
+        #endregion 
+
+        #region constructor
         public HelpPopup()
         {
             helpPopup = new Popup();
         }
+        #endregion
 
+        #region main function
         public void Show( string helpText )
         {
             StackPanel panelHelp = new StackPanel();
@@ -77,5 +86,6 @@ namespace PhotoProcess.AssistLib
         {
             helpPopup.IsOpen = false;
         }
+        #endregion
     }
 }

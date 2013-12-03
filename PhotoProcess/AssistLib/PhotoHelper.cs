@@ -16,10 +16,13 @@ namespace PhotoProcess.AssistLib
 {
     public class PhotoHelper
     {
+        #region Private Variables 
         private const string BackgroundRoot = "Images/";
         private const string SelectedData = "FlickrImageData.json";
         private MediaLibrary photoLib = new MediaLibrary();
-        
+        #endregion
+
+        #region Main Functions
         /// <summary>
         /// Save to Photo library
         /// </summary>
@@ -48,13 +51,6 @@ namespace PhotoProcess.AssistLib
             Picture pic = library.SavePicture(photoName, fileStream);
             fileStream.Close();
         }
-
-        private static string formatImageName(string originalImageName, MediaLibrary library)
-        {
-            string formatedName = originalImageName.EndsWith(".jpg") ? originalImageName : originalImageName + ".jpg";
-            return formatedName;
-        }
-
         
         /// <summary>
         /// clear the Isolated Storage
@@ -109,9 +105,13 @@ namespace PhotoProcess.AssistLib
             await SaveFromIsolatedStorageToPhotoLib();
         }
 
-
+        /// <summary>
+        /// save to isolated storage
+        /// </summary>
+        /// <param name="data"></param>
         public static void SaveToIsolatedStorage(List<FlickrImage> data)
         {
+            // serialize photo data to Json file
             var stringData = JsonConvert.SerializeObject(data);
 
             using (var storageFolder = IsolatedStorageFile.GetUserStoreForApplication())
@@ -126,6 +126,10 @@ namespace PhotoProcess.AssistLib
             }
         }
 
+        /// <summary>
+        /// save to photo library from isolated storage 
+        /// </summary>
+        /// <returns></returns>
         private static async Task SaveFromIsolatedStorageToPhotoLib()
         {
             string fileData;
@@ -146,8 +150,10 @@ namespace PhotoProcess.AssistLib
                 }
             }
 
+            // deserialize data to FlickrImage from Json file
             List<FlickrImage> images = JsonConvert.DeserializeObject<List<FlickrImage>>(fileData);
 
+            // download image
             if (images != null)
             {
                 foreach (FlickrImage image in images)
@@ -157,6 +163,11 @@ namespace PhotoProcess.AssistLib
             }
         }
 
+
+        /// <summary>
+        /// download images via flikr API
+        /// </summary>
+        /// <param name="uri"></param>
         private static async Task downloadFlickrImage(Uri uri)
         {
             string fileName = uri.Segments[uri.Segments.Length - 1];
@@ -167,6 +178,12 @@ namespace PhotoProcess.AssistLib
 
             photoLib.SavePicture(fileName, flickrResult);
         }
+        #endregion
+
+        #region Assist Functions
+        /// <summary>
+        /// generate fileName from dateTime
+        /// </summary>
 
         public static string GenFileName()
         {
@@ -174,6 +191,17 @@ namespace PhotoProcess.AssistLib
             return fileName;
         }
 
+        /// <summary>
+        /// format image name
+        /// </summary>
+        /// <param name="originalImageName"></param>
+        /// <param name="library">Photo Library</param>
+        private static string formatImageName(string originalImageName, MediaLibrary library)
+        {
+            string formatedName = originalImageName.EndsWith(".jpg") ? originalImageName : originalImageName + ".jpg";
+            return formatedName;
+        }
 
+        #endregion
     }
 }

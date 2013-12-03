@@ -9,6 +9,9 @@ using Nokia.Graphics.Imaging;
 
 namespace PhotoProcess.PhotoEdit
 {
+    /// <summary>
+    /// This class is calling Nokia package to apply filters
+    /// </summary>
     public class Filter
     {
         public async Task applyFilter(byte[] imageData, WriteableBitmap processedBitmap, List<IFilter> _components)
@@ -22,6 +25,7 @@ namespace PhotoProcess.PhotoEdit
             filters = _components;
 
             effect.Filters = filters;
+            // image processing
             await renderer.RenderAsync();
             processedBitmap.Invalidate();
         }

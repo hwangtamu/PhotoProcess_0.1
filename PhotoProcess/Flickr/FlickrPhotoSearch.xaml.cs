@@ -16,8 +16,12 @@ using System.Windows.Media.Imaging;
 
 namespace PhotoProcess.Flickr
 {
+    /// <summary>
+    /// Flickr searching page
+    /// </summary>
     public partial class FlickrPhotoSearch : PhoneApplicationPage
     {
+        #region constructor
         public FlickrPhotoSearch()
         {
             InitializeComponent();
@@ -25,7 +29,14 @@ namespace PhotoProcess.Flickr
 
             BuildLocalizedApplicationBar();
         }
+        #endregion
 
+        #region page loading event
+        /// <summary>
+        /// page loading event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void FlickrPhotoPage_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateMap();
@@ -51,7 +62,9 @@ namespace PhotoProcess.Flickr
 
         }
 
-        // Sample code for building a localized ApplicationBar
+        /// <summary>
+        /// build app bar when page is loaded
+        /// </summary>
         private void BuildLocalizedApplicationBar()
         {
             // Set the page's ApplicationBar to a new instance of ApplicationBar.
@@ -70,16 +83,25 @@ namespace PhotoProcess.Flickr
             appBarBackButton.Text = "Back To Main";
             appBarBackButton.Click += BackToMainPage;
             ApplicationBar.Buttons.Add(appBarBackButton);
-
-
         }
+        #endregion
 
+        #region button event
+        /// <summary>
+        /// back to main menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackToMainPage(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
         }
 
-
+        /// <summary>
+        /// click this button to navigate to search result page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SearchClick(object sender, EventArgs e)
         {
             string topic = HttpUtility.UrlEncode(SearchTopic.Text);
@@ -90,6 +112,7 @@ namespace PhotoProcess.Flickr
 
             NavigationService.Navigate(new Uri(navTo, UriKind.RelativeOrAbsolute));
         }
+        #endregion
     }
 
 }

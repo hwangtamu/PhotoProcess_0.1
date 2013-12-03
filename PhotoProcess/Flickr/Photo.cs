@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace PhotoProcess.Flickr
 {
+    /// <summary>
+    /// Flick photo calss for interacting with Flickr API
+    /// </summary>
     public class Photo
     {
         public string id { get; set; }

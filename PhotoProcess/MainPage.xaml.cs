@@ -13,44 +13,37 @@ namespace PhotoProcess
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        // Constructor
+        #region Constructor
         public MainPage()
         {
             InitializeComponent();
-
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
         }
+        #endregion
 
+        #region Button Event
+        /// <summary>
+        /// Navigate to photo library to edit photos  
+        /// </summary>
         private void buttonOpenPhotoLib_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/PhotoEdit/PhotoEdit.xaml", UriKind.RelativeOrAbsolute));           
         }
 
+        /// <summary>
+        /// Navigate to Open Camera to take photos
+        /// </summary>
         private void buttonOpenCamera_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Camera/CameraPhoto.xaml", UriKind.RelativeOrAbsolute));
         }
 
+        /// <summary>
+        /// Navigate to Flickr Search to get photos on line
+        /// </summary>
         private void buttonOpenFlickr_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new Uri("/Flickr/FlickrPhotoSearch.xaml", UriKind.RelativeOrAbsolute));
         }
-
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
+        #endregion
     }
 }

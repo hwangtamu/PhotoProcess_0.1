@@ -3,32 +3,38 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+
 using System.Windows;
 using System.Windows.Media.Imaging;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-
 
 using PhotoProcess.PhotoEdit;
 using PhotoProcess.AssistLib;
 
 namespace PhotoProcess.PhotoEdit
 {
+    /// <summary>
+    /// This class implements methods for creating several image effects  
+    /// </summary>
     public partial class EditImageUserCtrl : UserControl
     {
+        #region private variables
         private Image imageRender;
         private StackPanel mainFuncuserCtrl;
 
         Stack<WriteableBitmap> processedBmpImageStack;
         private WriteableBitmap orginalBitmap;
-            
+        #endregion
+
+        #region constructor
         public EditImageUserCtrl()
         {
             InitializeComponent();
         }
-
 
         public void setImageGrid(StackPanel mainFuncuserCtrl, Image imageRender, 
             Stack<WriteableBitmap> processedBmpImageStack)
@@ -37,7 +43,14 @@ namespace PhotoProcess.PhotoEdit
             this.imageRender = imageRender;
             this.mainFuncuserCtrl = mainFuncuserCtrl;
         }
+        #endregion
 
+        #region button events
+        /// <summary>
+        /// roate image
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonRotate_Click(object sender, RoutedEventArgs e)
         {
             orginalBitmap = processedBmpImageStack.Peek(); 
@@ -46,6 +59,11 @@ namespace PhotoProcess.PhotoEdit
             processedBmpImageStack.Push( processedBitmap );
         }
 
+        /// <summary>
+        /// geneate gray bitmap
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonGray_Click(object sender, RoutedEventArgs e)
         {
             orginalBitmap = processedBmpImageStack.Peek(); 
@@ -54,11 +72,16 @@ namespace PhotoProcess.PhotoEdit
             processedBmpImageStack.Push( processedBitmap );
         }
 
+        /// <summary>
+        /// back to main photo editing page
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonBackToMainFunc_Click(object sender, RoutedEventArgs e)
         {
             this.Visibility = Visibility.Collapsed;
             mainFuncuserCtrl.Visibility = Visibility.Visible;
         }
-
+        #endregion
     }
 }

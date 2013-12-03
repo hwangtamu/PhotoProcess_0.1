@@ -8,11 +8,26 @@ using Newtonsoft.Json;
 
 namespace PhotoProcess.Flickr
 {
+    /// <summary>
+    /// Flickr Image
+    /// </summary>
     public class FlickrImage
     {
+        #region private variable 
         public Uri Image320 { get; set; }
         public Uri Image1024 { get; set; }
+        #endregion
 
+        #region main function
+        /// <summary>
+        /// retrieve image via flickr API 
+        /// </summary>
+        /// <param name="flickrApiKey"></param>
+        /// <param name="topic"></param>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
         public async static Task<List<FlickrImage>> GetFlickrImages(
             string flickrApiKey,
             string topic,
@@ -57,7 +72,18 @@ namespace PhotoProcess.Flickr
             }
             return images;
         }
+        #endregion
 
+        #region assist functions
+        /// <summary>
+        /// generate formatted url 
+        /// </summary>
+        /// <param name="flickrApiKey"></param>
+        /// <param name="topic"></param>
+        /// <param name="latitude"></param>
+        /// <param name="longitude"></param>
+        /// <param name="radius"></param>
+        /// <returns></returns>
         private static string getBaseUrl(string flickrApiKey,
             string topic,
             double latitude = double.NaN,
@@ -106,5 +132,6 @@ namespace PhotoProcess.Flickr
                 radius);
             return baseUrl;
         }
+        #endregion
     }
 }

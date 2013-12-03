@@ -27,6 +27,7 @@ namespace PhotoProcess.Camera
 {
     public partial class CameraPhoto : PhoneApplicationPage
     {
+        #region private variables
         //This is a variable for the help popup.
         Popup help = new Popup();
 
@@ -41,8 +42,9 @@ namespace PhotoProcess.Camera
 
         //Create a WritebleBitmap object to store captured photo
         private WriteableBitmap capturedImage;
+        #endregion
 
-        //Constructor
+        #region Constructor
         public CameraPhoto()
         {
             InitializeComponent();
@@ -87,8 +89,14 @@ namespace PhotoProcess.Camera
             //Create new event handler for capturing a photo
             cameraTask.Completed += new EventHandler<PhotoResult>(cameraTask_Completed);
         }
+        #endregion
 
-        
+        #region button events
+        /// <summary>
+        /// Click back button to navigate back to main menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BackToMainPage_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.RelativeOrAbsolute));
@@ -126,7 +134,7 @@ namespace PhotoProcess.Camera
         }
 
         /// <summary>
-        /// ////////////////////////////////////////////////////////////////
+        /// Popup window to accept user input for image to be saved
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -148,6 +156,11 @@ namespace PhotoProcess.Camera
                 string fileName = e.Result;
                 fileName = fileName.EndsWith(".jpg") ? fileName : fileName + ".jpg";
                 PhotoHelper.SaveToPhotoLibrary(fileName, capturedImage);
+                MessageBoxResult result = MessageBox.Show("Successfully saved to local Photo Library!", "Edit Now?", MessageBoxButton.OKCancel);
+                if (result == MessageBoxResult.OK)
+                {
+                    NavigationService.Navigate(new Uri("/PhotoEdit/PhotoEdit.xaml", UriKind.RelativeOrAbsolute));
+                }
             }
         }
 
@@ -184,5 +197,6 @@ namespace PhotoProcess.Camera
                 textStatus.Text = "You decided not to take a picture.";
             }
         }
+        #endregion
     }
 }
